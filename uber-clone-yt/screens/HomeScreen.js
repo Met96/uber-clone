@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { setOrigin, setDestination } from '../redux/slices/navSlice';
 
 export default function HomeScreen() {
-
     const dispatch = useDispatch();
 
     return (
@@ -25,10 +24,13 @@ export default function HomeScreen() {
                     onPress={(data, details = null) => {
                         console.log(details);
                         dispatch(setOrigin({
-                            location: details.geometry.location,
+                            location: details,
                             description: data.description
                         }))
                         dispatch(setDestination(null));
+                    }}
+                    onFail={(data, details = null) => {
+                        console.log(details);
                     }}
                     minLength={2}
                     enablePoweredByContainer={false}
