@@ -1,18 +1,31 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import MapView, { Marker} from 'react-native-maps';
-import { selectOrigin} from '../../redux/slices/navSlice';
+import { selectDestination, selectOrigin} from '../../redux/slices/navSlice';
 import { useSelector } from 'react-redux';
-
+import MapViewDirections from "react-native-maps-directions";
+import {GOOGLE_API_KEY} from "@env";
 
 const Map = () => {
 
     const origin = useSelector(selectOrigin);
+    const destination = useSelector(selectDestination);
+    const MapRef = useRef(null)
 
+    useEffect(() => {
+        if(!origin || !destination) return;
+
+        // zoom and fit markers
+        MapRef.current.fitToSuppliedMarkers(['origin', 'destination'], {
+            edgePadding: {top: 50, right: 50, left: 50, bottom: 50}
+        })
+
+    },[origin, destination])
 
     return (
         <View style={styles.container}>
             <MapView
+                ref={MapRef}
                 style={styles.map}
                 mapType="mutedStandard"
                 initialRegion={{
@@ -22,16 +35,43 @@ const Map = () => {
                     longitudeDelta: 0.005,
                 }}
             >
+
+                {
+                    origin && destination && (
+                        <MapViewDirections
+                            origin={origin.description}
+                            destination={destination.description}
+                            apikey={GOOGLE_API_KEY}
+                            strokeWidth={3}
+                            strokeColor='black'
+                        />
+                    )
+                }
+
                 {
                     origin?.location && (
                         <Marker
-                            identifier='identifier'
+                            identifier='origin'
                             coordinate={{
                                 latitude: origin.location.lat,
                                 longitude: origin.location.lng
                             }}
                             title="Origin"
                             description={origin.description}
+                        />
+                    )
+                }
+
+{
+                    destination?.location && (
+                        <Marker
+                            identifier='destination'
+                            coordinate={{
+                                latitude: destination.location.lat,
+                                longitude: destination.location.lng
+                            }}
+                            title="Origin"
+                            description={destination.description}
                         />
                     )
                 }
