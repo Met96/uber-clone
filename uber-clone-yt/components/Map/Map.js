@@ -73,7 +73,7 @@ const Map = () => {
                                 latitude: origin.location.lat,
                                 longitude: origin.location.lng
                             }}
-                            title="Origin"
+                            title="Partenza"
                             description={origin.description}
                         />
                     )
@@ -87,7 +87,7 @@ const Map = () => {
                                 latitude: destination.location.lat,
                                 longitude: destination.location.lng
                             }}
-                            title="Origin"
+                            title="Arrivo"
                             description={destination.description}
                         />
                     )

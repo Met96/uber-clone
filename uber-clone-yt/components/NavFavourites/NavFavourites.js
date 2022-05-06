@@ -7,13 +7,13 @@ const data = [
     {
         id: 123,
         icon: "home",
-        location: "Home",
+        location: "Casa",
         destination: "Via Giuseppe Stefani 79, 44124 Ferrara",
     },
     {
         id: 456,
         icon: "briefcase",
-        location: "Work",
+        location: "Lavoro",
         destination: "Via Sile 18, 20159 Milano",
     },
 ]

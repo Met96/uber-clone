@@ -19,7 +19,7 @@ const NavigateCard = () => {
             <View style={tw`border-t border-gray-200 flex-shrink`}>
                 <View>
                     <GooglePlacesAutocomplete
-                        placeholder='Dove andiamo ?'
+                        placeholder='Dove si va?'
                         minLength={2}
                         enablePoweredByContainer={false}
                         query={{

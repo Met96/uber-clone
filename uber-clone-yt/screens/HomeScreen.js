@@ -28,7 +28,7 @@ export default function HomeScreen() {
                 }}
                 />
                 <GooglePlacesAutocomplete
-                    placeholder='Dove andiamo ?'
+                    placeholder='Dove si parte?'
                     onPress={(data, details = null) => {
                         dispatch(setOrigin({
                             location: details.geometry.location,

@@ -9,13 +9,13 @@ import { selectOrigin} from '../../redux/slices/navSlice';
 const data = [
     {
         id: 123,
-        title: "Get a ride",
+        title: "Viaggia",
         image: "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Black_v1.png",
         screen: "MapScreen",
     },
     {
         id: 456,
-        title: "Order food",
+        title: "Cibo",
         image: "https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/italian.png",
         screen: "EatsScreen", // change in future
     },
