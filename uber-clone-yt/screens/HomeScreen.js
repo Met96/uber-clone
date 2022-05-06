@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
-import NavOptions from '../components/NavOptions';
+import NavOptions from '../components/NavOptions/NavOptions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {GOOGLE_API_KEY} from "@env";
 import { useDispatch } from 'react-redux';
@@ -22,15 +22,11 @@ export default function HomeScreen() {
                 <GooglePlacesAutocomplete
                     placeholder='Dove andiamo ?'
                     onPress={(data, details = null) => {
-                        console.log(details);
                         dispatch(setOrigin({
-                            location: details,
+                            location: details.geometry.location,
                             description: data.description
                         }))
                         dispatch(setDestination(null));
-                    }}
-                    onFail={(data, details = null) => {
-                        console.log(details);
                     }}
                     minLength={2}
                     enablePoweredByContainer={false}
@@ -39,6 +35,8 @@ export default function HomeScreen() {
                         language: 'it',
                     }}
                     debounce={400}
+                    fetchDetails={true}
+                    returnKeyType={"search"}
                     nearbyPlacesAPI="GooglePlacesSearch"
                     styles={{
                         container: {
