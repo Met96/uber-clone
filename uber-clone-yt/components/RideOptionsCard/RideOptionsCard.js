@@ -72,7 +72,7 @@ const RideOptionsCard = () => {
                             <Text style={tw`text-base font-semibold`}>{title}</Text>
                             <Text style={tw`text-xs`}>{travelTimeInformation?.duration?.text} di viaggio</Text>
                         </View>
-                        <Text style={tw`text-md font-semibold`}>
+                        <Text style={tw`text-base font-semibold`}>
 
                             {
                                 new Intl.NumberFormat("it-IT", {
