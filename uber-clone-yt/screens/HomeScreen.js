@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions/NavOptions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {GOOGLE_API_KEY} from "@env";
-import { useDispatch } from 'react-redux';
-import { setOrigin, setDestination } from '../redux/slices/navSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrigin, setDestination, selectOrigin } from '../redux/slices/navSlice';
 import NavFavourites from '../components/NavFavourites/NavFavourites';
 
 export default function HomeScreen() {
     const dispatch = useDispatch();
+    const AutocompleteRef = useRef(null);
+    const origin = useSelector(selectOrigin);
+
+    useEffect( () => {
+        if(origin) return;
+        AutocompleteRef.current.clear();
+    },[origin])
 
     return (
         <SafeAreaView style={tw`bg-white h-full`}>
@@ -36,6 +43,7 @@ export default function HomeScreen() {
                         language: 'it',
                     }}
                     debounce={400}
+                    ref={AutocompleteRef}
                     fetchDetails={true}
                     returnKeyType={"search"}
                     nearbyPlacesAPI="GooglePlacesSearch"

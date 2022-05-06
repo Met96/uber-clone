@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import tw from 'twrnc';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {GOOGLE_API_KEY} from "@env";
-import { useDispatch } from 'react-redux';
-import { setDestination } from '../../redux/slices/navSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectOrigin, setDestination } from '../../redux/slices/navSlice';
 import { useNavigation } from '@react-navigation/native';
 import NavFavourites from '../NavFavourites/NavFavourites';
 import { Icon } from 'react-native-elements';
@@ -13,7 +13,6 @@ const NavigateCard = () => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-
     return (
         <SafeAreaView style={tw`bg-white flex-1`}>
             <Text style={tw`text-center py-5 text-xl`}>NavigateCard</Text>
@@ -61,7 +60,7 @@ const NavigateCard = () => {
                         color={"black"}
                         size={16}
                     />
-                    <Text style={tw` text-center`}>Eat</Text>
+                    <Text style={tw`text-center`}>Eat</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
