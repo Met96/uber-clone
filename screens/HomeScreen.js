@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions/NavOptions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import {GOOGLE_API_KEY} from "@env";
+import { GOOGLE_API_KEY } from "@env";
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrigin, setDestination, selectOrigin } from '../redux/slices/navSlice';
 import NavFavourites from '../components/NavFavourites/NavFavourites';

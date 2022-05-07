@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-na
 import React, { useEffect, useRef } from 'react'
 import tw from 'twrnc';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import {GOOGLE_API_KEY} from "@env";
+import { GOOGLE_API_KEY } from "@env";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectOrigin, setDestination } from '../../redux/slices/navSlice';
 import { useNavigation } from '@react-navigation/native';
@@ -25,6 +25,9 @@ const NavigateCard = () => {
                         query={{
                             key: GOOGLE_API_KEY,
                             language: 'it',
+                        }}
+                        onFail={(data, details = null) => {
+                            console.log("error", data, details);
                         }}
                         styles={toInputBoxStyles}
                         debounce={400}

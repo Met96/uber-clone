@@ -4,7 +4,7 @@ import MapView, { Marker} from 'react-native-maps';
 import { selectDestination, selectOrigin, setTravelTimeInformation} from '../../redux/slices/navSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import MapViewDirections from "react-native-maps-directions";
-import {GOOGLE_API_KEY} from "@env";
+import { GOOGLE_API_KEY } from "@env";
 
 const Map = () => {
 

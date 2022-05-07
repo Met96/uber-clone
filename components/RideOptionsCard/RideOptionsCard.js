@@ -89,7 +89,7 @@ const RideOptionsCard = () => {
             />
 
             <View style={tw`mt-auto border-t border-gray-100`}>
-                <TouchableOpacity style={tw`bg-black py-3 m-3 ${!selected && 'bg-gray-200'}`}>
+                <TouchableOpacity style={tw`bg-black py-3 m-3 ${!selected ? 'bg-gray-200' : null}`}>
                     <Text style={tw`text-center text-white text-xl`}>{selected ? `Hai scelto ${selected?.title}` : `Seleziona Uber` }</Text>
                 </TouchableOpacity>
             </View>
