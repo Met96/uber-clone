@@ -1,4 +1,4 @@
-import React, { useEffect, useRef} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions/NavOptions';
@@ -8,16 +8,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setOrigin, setDestination, selectOrigin } from '../redux/slices/navSlice';
 import NavFavourites from '../components/NavFavourites/NavFavourites';
 import InfoBanner from '../components/InfoBanner/InfoBanner';
+import * as Location from 'expo-location';
 
 export default function HomeScreen() {
     const dispatch = useDispatch();
     const AutocompleteRef = useRef(null);
     const origin = useSelector(selectOrigin);
+    const [location, setLocation] = useState(null);
 
     useEffect( () => {
         if(origin) return;
         AutocompleteRef.current.clear();
-    },[origin])
+    },[origin]);
+
+    useEffect(() => {  
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                console.log('Permission to access location was denied');
+                return;
+            }
+        
+            let location = await Location.getCurrentPositionAsync({});
+
+            const lat = location.coords?.latitude;
+            const lng = location.coords?.longitude;
+
+            console.log("location", lat, lng);
+
+
+            const URL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`;
+
+            fetch(URL).then(res => res.json())
+            .then(data => {
+                //dispatch(setTravelTimeInformation(data.rows[0].elements[0]))
+                console.log("result", data);
+            })
+            setLocation(location);
+        })();
+    }, []);
 
     return (
         <SafeAreaView style={tw`bg-white h-full`}>
@@ -50,9 +79,6 @@ export default function HomeScreen() {
                     fetchDetails={true}
                     returnKeyType={"search"}
                     nearbyPlacesAPI="GooglePlacesSearch"
-                    currentLocation={true}
-                    currentLocationLabel='Posizione attuale'
-                    enableHighAccuracyLocation={true}
                     styles={{
                         container: {
                             flex: 0,
