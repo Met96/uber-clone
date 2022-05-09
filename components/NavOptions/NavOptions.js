@@ -26,25 +26,29 @@ const NavOptions = () => {
     const navigation = useNavigation();
     const origin = useSelector(selectOrigin);
 
+
+    const renderItem = ({item}) => {
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate(item.screen)} disabled={!origin}>
+                <View style={tw`p-2 bg-gray-300 m-2 w-auto rounded-4 ${!origin ? `opacity-20`: null}`}>
+                    <Image
+                        style={{ width: 80, height: 80, resizeMode: "contain" }}
+                        source= {{
+                            uri: item.image
+                        }}
+                    />
+                </View>
+                <Text style={tw`text-center font-semibold`}>{item.title}</Text>
+            </TouchableOpacity>
+        )
+    }
+
     return (
         <FlatList
         data={data}
         horizontal
         keyExtractor={(item) => item.id}
-        renderItem={({item}) => (
-            <TouchableOpacity style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40 rounded-2`} onPress={() => navigation.navigate(item.screen)} disabled={!origin}>
-                <View style={tw`${!origin ? `opacity-20`: null}`}>
-                    <Image
-                        style={{ width: 120, height: 120, resizeMode: "contain" }}
-                        source= {{
-                            uri: item.image
-                        }}
-                    />
-                    <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
-                    <Icon style={tw`p-1 bg-black rounded-full w-8 mt-4`} type="antdesign" name="arrowright" color="white" />
-                </View>
-            </TouchableOpacity>
-        )} />
+        renderItem={renderItem} />
     )
 }
 

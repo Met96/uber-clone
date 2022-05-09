@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef} from 'react'
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions/NavOptions';
@@ -7,6 +7,7 @@ import { GOOGLE_API_KEY } from "@env";
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrigin, setDestination, selectOrigin } from '../redux/slices/navSlice';
 import NavFavourites from '../components/NavFavourites/NavFavourites';
+import InfoBanner from '../components/InfoBanner/InfoBanner';
 
 export default function HomeScreen() {
     const dispatch = useDispatch();
@@ -27,6 +28,8 @@ export default function HomeScreen() {
                     uri: `https://loghi-famosi.com/wp-content/uploads/2020/05/Uber-Logo-650x366.png`
                 }}
                 />
+                <InfoBanner />
+                <NavOptions />
                 <GooglePlacesAutocomplete
                     placeholder='Dove si parte?'
                     onPress={(data, details = null) => {
@@ -47,16 +50,21 @@ export default function HomeScreen() {
                     fetchDetails={true}
                     returnKeyType={"search"}
                     nearbyPlacesAPI="GooglePlacesSearch"
+                    currentLocation={true}
+                    currentLocationLabel='Posizione attuale'
+                    enableHighAccuracyLocation={true}
                     styles={{
                         container: {
-                            flex: 0
+                            flex: 0,
+                            marginTop: 30
                         },
                         textInput: {
-                            fontSize: 15
+                            fontSize: 15,
+                            color: 'black',
+                            backgroundColor: '#f1f1f1'
                         }
                     }}
                 />
-                <NavOptions />
                 <NavFavourites />
             </View>
         </SafeAreaView>
