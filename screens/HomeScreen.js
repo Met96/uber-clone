@@ -52,7 +52,7 @@ export default function HomeScreen() {
                     uri: `https://loghi-famosi.com/wp-content/uploads/2020/05/Uber-Logo-650x366.png`
                 }}
                 />
-                <InfoBanner />
+                { origin && <InfoBanner />}
                 <NavOptions />
                 <GooglePlacesAutocomplete
                     placeholder='Dove si parte?'

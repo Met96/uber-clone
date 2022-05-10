@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_API_KEY } from "@env";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOrigin, setDestination } from '../../redux/slices/navSlice';
+import { selectDestination, setDestination } from '../../redux/slices/navSlice';
 import { useNavigation } from '@react-navigation/native';
 import NavFavourites from '../NavFavourites/NavFavourites';
 import { Icon } from 'react-native-elements';
@@ -13,6 +13,13 @@ const NavigateCard = () => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const destination = useSelector(selectDestination);
+
+    useEffect(() => {
+        if(!destination) return;
+        else navigation.navigate("RideOptionsCard");
+    }, [destination])
+
     return (
         <SafeAreaView style={tw`bg-white flex-1`}>
             <Text style={tw`text-center py-5 text-xl`}>Scegli destinazione</Text>
