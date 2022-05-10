@@ -75,6 +75,10 @@ export default function HomeScreen() {
                     returnKeyType={"search"}
                     nearbyPlacesAPI="GooglePlacesSearch"
                     setAddressText={(value) => value = origin?.description}
+                    textInputProps={{
+                        placeholderTextColor: '#666666',
+                        returnKeyType: "search"
+                    }}
                     styles={{
                         container: {
                             flex: 0,

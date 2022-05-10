@@ -36,8 +36,25 @@ const NavigateCard = () => {
                         onFail={(data, details = null) => {
                             console.log("error", data, details);
                         }}
-                        styles={toInputBoxStyles}
-                        debounce={400}
+                        styles={{
+                            container: {
+                                flex: 0,
+                                marginTop: 30
+                            },
+                            textInput: {
+                                fontSize: 15,
+                                color: 'black',
+                                backgroundColor: '#f1f1f1'
+                            },
+                            textInputContainer: {
+                                paddingHorizontal: 20,
+                                paddingBottom: 0
+                            },
+                        }}
+                        textInputProps={{
+                            placeholderTextColor: '#666666',
+                            returnKeyType: "search"
+                        }}
                         fetchDetails={true}
                         returnKeyType={"search"}
                         nearbyPlacesAPI="GooglePlacesSearch"
@@ -86,7 +103,8 @@ const toInputBoxStyles = StyleSheet.create({
         flex: 0
     },
     textInput: {
-        backgroundColor: "#DDDDDF",
+        backgroundColor: "#F1F1F1",
+        color: "black",
         borderRadius: 0,
         fontSize: 18
     },
