@@ -41,7 +41,7 @@ const NavFavourites = () => {
             location: itemSelected[0]?.location,
             description: itemSelected[0]?.destination
         }));
-        navigation.navigate("MapScreen");
+        navigation.navigate("MapScreen", { screen: "RideOptionsCard" });
     }
 
     return (

@@ -13,13 +13,7 @@ const NavigateCard = () => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const destination = useSelector(selectDestination);
-
-    useEffect(() => {
-        if(!destination) return;
-        else navigation.navigate("RideOptionsCard");
-    }, [destination])
-
+    
     return (
         <SafeAreaView style={tw`bg-white flex-1`}>
             <Text style={tw`text-center py-5 text-xl`}>Scegli destinazione</Text>
