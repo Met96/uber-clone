@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef } from 'react'
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions/NavOptions';
@@ -14,7 +14,6 @@ export default function HomeScreen() {
     const dispatch = useDispatch();
     const AutocompleteRef = useRef(null);
     const origin = useSelector(selectOrigin);
-    const [location, setLocation] = useState(null);
 
     useEffect( () => {
         if(origin) return;
@@ -28,23 +27,19 @@ export default function HomeScreen() {
                 console.log('Permission to access location was denied');
                 return;
             }
-        
             let location = await Location.getCurrentPositionAsync({});
-
             const lat = location.coords?.latitude;
             const lng = location.coords?.longitude;
-
-            console.log("location", lat, lng);
-
-
             const URL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`;
-
             fetch(URL).then(res => res.json())
             .then(data => {
-                //dispatch(setTravelTimeInformation(data.rows[0].elements[0]))
-                console.log("result", data);
+                dispatch(setOrigin({
+                    location: data.results[0]?.geometry?.location,
+                    description: data.results[0]?.formatted_address
+                }))
+                dispatch(setDestination(null));
+                AutocompleteRef.current?.setAddressText(data.results[0]?.formatted_address);
             })
-            setLocation(location);
         })();
     }, []);
 
@@ -79,6 +74,7 @@ export default function HomeScreen() {
                     fetchDetails={true}
                     returnKeyType={"search"}
                     nearbyPlacesAPI="GooglePlacesSearch"
+                    setAddressText={(value) => value = origin?.description}
                     styles={{
                         container: {
                             flex: 0,
