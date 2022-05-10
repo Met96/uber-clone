@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions/NavOptions';
@@ -14,6 +14,7 @@ export default function HomeScreen() {
     const dispatch = useDispatch();
     const AutocompleteRef = useRef(null);
     const origin = useSelector(selectOrigin);
+    const [loading, setLoading] = useState(false);
 
     useEffect( () => {
         if(origin) return;
@@ -27,24 +28,36 @@ export default function HomeScreen() {
                 console.log('Permission to access location was denied');
                 return;
             }
+            setLoading(true);
             let location = await Location.getCurrentPositionAsync({});
             const lat = location.coords?.latitude;
             const lng = location.coords?.longitude;
             const URL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`;
             fetch(URL).then(res => res.json())
-            .then(data => {
-                dispatch(setOrigin({
+            .then(async (data) => {
+                await dispatch(setOrigin({
                     location: data.results[0]?.geometry?.location,
                     description: data.results[0]?.formatted_address
                 }))
                 dispatch(setDestination(null));
                 AutocompleteRef.current?.setAddressText(data.results[0]?.formatted_address);
+                setLoading(false);
             })
         })();
     }, []);
 
     return (
         <SafeAreaView style={tw`bg-white h-full`}>
+            { loading && (
+            <View style={tw`w-full h-full z-999 bg-white-600 flex items-center justify-center`}>
+                <Image 
+                style={{  width: 100, height: 100, resizeMode: 'contain'}}
+                source={{
+                    uri: `https://loghi-famosi.com/wp-content/uploads/2020/05/Uber-Logo-650x366.png`
+                }}
+                />
+            </View>
+            )}
             <View style={tw`p-5`}>
                 <Image 
                 style={{ width: 100, height: 100, resizeMode: 'contain'}}
