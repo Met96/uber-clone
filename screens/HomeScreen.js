@@ -49,7 +49,7 @@ export default function HomeScreen() {
     return (
         <SafeAreaView style={tw`bg-white h-full`}>
             { loading && (
-            <View style={tw`w-full h-full z-999 bg-white-600 flex items-center justify-center`}>
+            <View style={tw`w-full h-full z-999 bg-white flex items-center justify-center`}>
                 <Image 
                 style={{  width: 100, height: 100, resizeMode: 'contain'}}
                 source={{
